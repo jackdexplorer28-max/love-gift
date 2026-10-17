@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4b1028">
+  <title>A Little Surprise For You ❤️</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      padding: 24px 16px; color: #fff4f7;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at top, #782344 0, #35101f 48%, #160912 100%);
+      text-align: center;
+    }
+    main { width: min(100%, 560px); }
+    .eyebrow { color: #ffc7d8; letter-spacing: .18em; text-transform: uppercase; font-size: .75rem; }
+    h1 { font-family: Georgia, serif; font-weight: 500; font-size: clamp(2rem, 8vw, 3.25rem); margin: 12px 0; }
+    .intro { color: #f8dce5; line-height: 1.6; margin: 0 auto 24px; max-width: 390px; }
+    .gift-button {
+      display: block; margin: 24px auto 12px; padding: 0; border: 0; background: transparent;
+      cursor: pointer; width: 220px; height: 205px; position: relative;
+      filter: drop-shadow(0 18px 24px #0007); transition: transform .2s ease;
+    }
+    .gift-button:hover { transform: translateY(-4px); }
+    .gift-button:focus-visible { outline: 3px solid #ffd4e0; outline-offset: 8px; border-radius: 12px; }
+    .box-body {
+      position: absolute; width: 180px; height: 125px; left: 20px; bottom: 12px;
+      background: linear-gradient(100deg, #a91548, #e53c72 48%, #a91548);
+      border: 2px solid #ffb5cb; border-radius: 5px;
+    }
+    .box-lid {
+      position: absolute; width: 212px; height: 43px; left: 4px; bottom: 130px;
+      background: linear-gradient(100deg, #bd174e, #f65b88 50%, #bd174e);
+      border: 2px solid #ffd0dd; border-radius: 6px; transform-origin: 15% 90%;
+      transition: transform .8s cubic-bezier(.2,.8,.2,1), bottom .8s;
+      z-index: 2;
+    }
+    .ribbon-v { position: absolute; width: 30px; height: 125px; left: 95px; bottom: 12px; background: #ffe2a3; border-left: 2px solid #fff0c9; border-right: 2px solid #fff0c9; }
+    .ribbon-h { position: absolute; width: 212px; height: 20px; left: 4px; bottom: 66px; background: #ffe2a3; z-index: 1; }
+    .bow { position: absolute; left: 76px; bottom: 157px; width: 68px; height: 38px; z-index: 3; transition: transform .8s, opacity .4s; }
+    .bow:before, .bow:after { content: ""; position: absolute; width: 35px; height: 26px; border: 7px solid #ffe2a3; border-radius: 50% 50% 10% 50%; }
+    .bow:before { left: 0; transform: rotate(25deg); }
+    .bow:after { right: 0; transform: scaleX(-1) rotate(25deg); }
+    .sparkle { position: absolute; color: #ffe7b7; font-size: 25px; animation: twinkle 1.8s infinite ease-in-out; }
+    .s1 { left: 0; top: 30px; } .s2 { right: 0; top: 12px; animation-delay: .5s; } .s3 { right: 12px; bottom: 0; animation-delay: .9s; }
+    @keyframes twinkle { 50% { opacity: .35; transform: scale(.8) rotate(20deg); } }
+    .opened .box-lid { transform: translate(-15px, -85px) rotate(-22deg); }
+    .opened .bow { transform: translate(-25px, -70px) rotate(-20deg); opacity: 0; }
+    .hint { color: #ffd4e0; font-size: .92rem; }
+    .surprise { display: none; margin-top: 32px; animation: appear .7s ease both; }
+    .surprise.show { display: block; }
+    .message { font-family: Georgia, serif; font-size: clamp(1.45rem, 5vw, 2rem); line-height: 1.35; margin: 8px 0 12px; }
+    .note { color: #f8dce5; line-height: 1.6; margin: 0 auto 20px; max-width: 440px; white-space: pre-wrap; }
+    video { display: block; width: 100%; max-height: 62vh; background: #080408; border: 1px solid #eaa0b8; border-radius: 14px; }
+    .small { color: #dcbac6; font-size: .8rem; margin-top: 12px; }
+    .replay { margin-top: 18px; border: 1px solid #ffc7d8; color: #fff4f7; background: #ffffff12; padding: 11px 18px; border-radius: 999px; font: inherit; cursor: pointer; }
+    @keyframes appear { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">A little something from my heart</div>
+    <h1>For You, My Love ❤️</h1>
+    <p class="intro">I have a little surprise for you. Tap the gift to open it.</p>
+
+    <button class="gift-button" id="gift" aria-label="Open your surprise gift" aria-expanded="false">
+      <span class="sparkle s1">✦</span><span class="sparkle s2">✧</span><span class="sparkle s3">✦</span>
+      <span class="box-body"></span><span class="ribbon-v"></span><span class="ribbon-h"></span>
+      <span class="box-lid"></span><span class="bow"></span>
+    </button>
+    <div class="hint" id="hint">Tap to unwrap your surprise ✨</div>
+
+    <section class="surprise" id="surprise" aria-live="polite">
+      <div class="message">You make my world more beautiful. 💗</div>
+      <p class="note">No matter how far apart we are, you have a special place in my heart. This little surprise is just for you.</p>
+      <video id="myVideo" controls playsinline preload="metadata">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support this video. Please try opening the link in Chrome.
+      </video>
+      <p class="small">Your special video is waiting above. Tap Play when you're ready. ❤️</p>
+      <button class="replay" id="replay" type="button">Close the gift</button>
+    </section>
+  </main>
+  <script>
+    const gift = document.getElementById('gift');
+    const surprise = document.getElementById('surprise');
+    const hint = document.getElementById('hint');
+    const video = document.getElementById('myVideo');
+    const replay = document.getElementById('replay');
+
+    gift.addEventListener('click', () => {
+      const isOpen = surprise.classList.contains('show');
+      if (isOpen) return;
+      gift.classList.add('opened');
+      gift.setAttribute('aria-expanded', 'true');
+      hint.textContent = 'Your surprise is here ❤️';
+      surprise.classList.add('show');
+      setTimeout(() => surprise.scrollIntoView({ behavior: 'smooth', block: 'start' }), 180);
+    });
+
+    replay.addEventListener('click', () => {
+      video.pause();
+      video.currentTime = 0;
+      surprise.classList.remove('show');
+      gift.classList.remove('opened');
+      gift.setAttribute('aria-expanded', 'false');
+      hint.textContent = 'Tap to unwrap your surprise ✨';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
